@@ -28,7 +28,7 @@ public class PhidgetAccelerometer : MonoBehaviour {
 				AttachedText.text = "Connected";
 				AttachedText.color = Color.green;
 			}
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < device.axes.Count; i++) {
 				acceleration[i] = device.axes[i].Acceleration;
 			}
 			if (AccelerationText) {
