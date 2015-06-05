@@ -7,7 +7,7 @@ public class LogitechSteeringWheel : MonoBehaviour {
     LogitechGSDK.LogiControllerPropertiesData properties;
 	public int index;
 
-	public long timestamp { get; private set; }
+	public float timestamp { get; private set; }
 	public float wheelAngle { get; private set; }
 	public LogitechGSDK.DIJOYSTATE2ENGINES rec;
 
@@ -107,7 +107,7 @@ public class LogitechSteeringWheel : MonoBehaviour {
 	            propertiesEdit.text += "allowGameSettings = " + actualProperties.allowGameSettings + "\n";
 			}
 
-			timestamp = System.DateTime.Now.TimeOfDay.Ticks;
+			timestamp = Time.realtimeSinceStartup;
 			if (timestampText) {
 				timestampText.text = string.Format("Timestamp: {0}", timestamp);
 			}

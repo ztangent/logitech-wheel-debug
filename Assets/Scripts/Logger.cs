@@ -13,14 +13,18 @@ public class Logger : MonoBehaviour {
 	public PhidgetAccelerometer Accelerometer;
 
 	private TextWriter Writer;
-	private static string header = 	string.Format ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\n",
-       "WheelTime",
-       "AccelTime",
-       "WheelAngle",
-       "WheelX",
-       "AccelAxis0",
-       "AccelAxis1",
-       "AccelAxis2");
+	private static string header = 	string.Format ("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\n",
+		"WheelTime",
+		"AccelTime",
+		"WheelAngle",
+		"WheelX",
+		"Acceleration",
+		"AccelerationX",
+		"AccelerationY",
+		"AccelerationZ",
+		"TiltX",
+		"TiltY",
+		"TiltZ");
 
 	// Use this for initialization
 	void Start () {
@@ -40,10 +44,7 @@ public class Logger : MonoBehaviour {
 		if (Input.GetKeyUp (LogKey)) {
 			IsLogging = !IsLogging;
 			if (IsLogging){
-				Print("Started logging");
 				Print(header);
-			} else {
-				Print("Stopped logging");
 			}
 		}
 	}
@@ -51,14 +52,18 @@ public class Logger : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
 		if (IsLogging) {
-			string line = string.Format ("{0}\t{1}\t{2:0.000000}\t{3:00000}\t{4:0.000000}\t{5:0.000000}\t{6:0.000000}",
+			string line = string.Format("{0}\t{1}\t{2:n2}\t{3}\t{4:n6}\t{5:n6}\t{6:n6}\t{7:n6}\t{8:n2}\t{9:n2}\t{10:n2}",
 	            SteeringWheel.timestamp,
 	            Accelerometer.timestamp,
 	            SteeringWheel.wheelAngle,
 	            SteeringWheel.rec.lX,
-	            Accelerometer.acceleration [0],
-	            Accelerometer.acceleration [1],
-	            Accelerometer.acceleration [2]);
+			    Accelerometer.magnitude,
+	            Accelerometer.acceleration[0],
+	            Accelerometer.acceleration[1],
+	            Accelerometer.acceleration[2],
+             	Accelerometer.tilt[0],
+	            Accelerometer.tilt[1],
+	            Accelerometer.tilt[2]);
 			Print(line);
 		}
 	}
